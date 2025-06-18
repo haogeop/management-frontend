@@ -277,7 +277,7 @@
     "@babel/runtime" "^7.25.6"
     tslib "^2.5.3"
 
-"@antv/g6@^5.0.48":
+"@antv/g6@^5.0.47":
   version "5.0.48"
   resolved "https://registry.npmmirror.com/@antv/g6/-/g6-5.0.48.tgz#3c991c092ae4b948160e9f0da02c1c7a993f74db"
   integrity sha512-ngACp0NTJE1Dg03myB6Tqj0iVALiwEl83sul+xFqwASxjmw9dv3UeGa6tFGDp+4QvzXSh5GM8SlbTMTlfgEMnQ==

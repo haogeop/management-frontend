@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Table, Button, Space, Input, Dropdown, Menu, Card, Modal, Form, Tabs } from 'antd';
 import { SearchOutlined, DownOutlined, CloudOutlined, IdcardOutlined, BarsOutlined, DatabaseOutlined } from '@ant-design/icons';
-import { storageColumns } from '../../statics/assets';
+import { storageColumns, networkColumns, hostColumns, accountColumns, databaseColumns, CloudColumns} from '../../statics/assets';
 
 const { TabPane } = Tabs;
 
@@ -102,17 +102,22 @@ const AssetManagement: React.FC = () => {
   const switchColumnData = (tab: string) => {
     switch (tab) {
       case "storage": 
-        return storageColumns
+        setColumns(storageColumns)
         break
       case "network":
+        setColumns(networkColumns)
         break
-        case "host":
-          break
+      case "host":
+        setColumns(hostColumns)
+        break
       case "account":
+        setColumns(accountColumns)
         break
       case "database": 
+        setColumns(databaseColumns)
         break
       case "others":
+        setColumns(CloudColumns)
         break
     }
     return [
@@ -127,7 +132,7 @@ const AssetManagement: React.FC = () => {
 
   useEffect(() => {
     fetchData(activeTab, pagination.current, pagination.pageSize);
-    setColumns(switchColumnData(activeTab)); // 设置列
+    switchColumnData(activeTab); // 设置列
   }, [activeTab, pagination.current, pagination.pageSize]);
 
   const handleTableChange = (pagination: any) => {
@@ -139,36 +144,36 @@ const AssetManagement: React.FC = () => {
     <div style={{ padding: '24px', background: '#fff' }}>
       {/* 统计信息区域 */}
       <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '16px' }}>
-        <div style={{ display: 'flex', gap: '16px' }}>
+        <div style={{ flex: 1, display: 'flex', gap: '16px' }}>
           <Card size="small" style={{ textAlign: 'center' }}>
-            <h3>存储资产</h3>
-            <p>5</p>
+            <span>存储资产</span>
+            <div style={{ marginTop: '12px' }}>5</div>
           </Card>
           <Card size="small" style={{ textAlign: 'center' }}>
-            <h3>网络资产</h3>
-            <p>5</p>
+            <span>网络资产</span>
+            <div style={{ marginTop: '12px' }}>5</div>
           </Card>
           <Card size="small" style={{ textAlign: 'center' }}>
-            <h3>主机资产</h3>
-            <p>5</p>
+            <span>主机资产</span>
+            <div style={{ marginTop: '12px' }}>5</div>
           </Card>
           <Card size="small" style={{ textAlign: 'center' }}>
-            <h3>数据库资产</h3>
-            <p>5</p>
+            <span>数据库资产</span>
+            <div style={{ marginTop: '12px' }}>5</div>
           </Card>
+        </div>
+        {/* 多云资产接入区域 */}
+        <div style={{ flex: 1, marginBottom: '16px', display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
+          <span style={{ marginBottom: '8px' }}>多云资产接入</span>
+          <Space>
+            <Button icon={<CloudOutlined />} onClick={handleModalOpen} />
+            <Button icon={<IdcardOutlined />} onClick={handleModalOpen} />
+            <Button icon={<DatabaseOutlined />} onClick={handleModalOpen} />
+            <Button icon={<BarsOutlined />} onClick={handleModalOpen} />
+          </Space>
         </div>
       </div>
 
-      {/* 多云资产接入区域 */}
-      <div style={{ marginBottom: '16px', display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
-        <span style={{ marginBottom: '8px' }}>多云资产接入</span>
-        <Space>
-          <Button icon={<CloudOutlined />} onClick={handleModalOpen} />
-          <Button icon={<IdcardOutlined />} onClick={handleModalOpen} />
-          <Button icon={<DatabaseOutlined />} onClick={handleModalOpen} />
-          <Button icon={<BarsOutlined />} onClick={handleModalOpen} />
-        </Space>
-      </div>
 
       {/* 搜索和操作区域 */}
       <div style={{ marginBottom: '16px', display: 'flex', justifyContent: 'space-between' }}>

@@ -1,8 +1,9 @@
-// import { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import React, { Children } from 'react';
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
-import { LaptopOutlined, NotificationOutlined, UserOutlined } from '@ant-design/icons';
-import { Breadcrumb, Layout, Menu, theme } from 'antd';
+import { LaptopOutlined, NotificationOutlined, UserOutlined, MenuFoldOutlined,
+  MenuUnfoldOutlined, } from '@ant-design/icons';
+import { Breadcrumb, Layout, Menu, theme, Button } from 'antd';
 import Home from './components/Home'
 import Topological from './components/Topological';
 import AssetsOverview from './components/AssetsCenter/AssetsOverview'
@@ -18,6 +19,9 @@ const App = () => {
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
+
+  const [collapsed, setCollapsed] = useState(false);
+
 
   const routes = [
     {
@@ -60,16 +64,30 @@ const App = () => {
   return (
     <Router>
       <Layout style={{ minHeight: '100vh' }}>
-        <Header style={{ display: 'flex', alignItems: 'center', background: '#001529' }}>
-          <div className="demo-logo" style={{ color: 'white', fontSize: '20px' }}>系统名称</div>
+        <Header style={{ display: 'flex', alignItems: 'center', background: '#FFFFFF', boxShadow: '0 2px 4px rgba(78, 89, 105, 0.5)',}}>
+          <div className="demo-logo" style={{ color: '#1D2129', fontSize: '20px' }}>Arco Pro</div>
         </Header>
         <Layout>
-          <Sider width={200} style={{ background: colorBgContainer }}>
+          <Sider width={200} style={{ background: colorBgContainer }} collapsible collapsed={collapsed} trigger={null} >
             <Menu
               mode="inline"
-              defaultSelectedKeys={['1']}
+              defaultSelectedKeys={['1']} // 这个地方要改成从path里面取
               style={{ height: '100%', borderRight: 0 }}
               items={routes}
+            />
+            <Button
+              type="text"
+              icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+              onClick={() => setCollapsed(!collapsed)}
+              style={{
+                fontSize: '16px',
+                width: 64,
+                height: 64,
+                left: '50%', // 水平居中
+                position: 'absolute',
+                transform: 'translateX(-50%)',
+                bottom: '16px', // 距离底部的距离
+              }}
             />
           </Sider>
           <Layout style={{ padding: '0 24px 24px' }}>
