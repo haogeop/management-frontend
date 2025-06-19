@@ -17,7 +17,7 @@ export default () => {
   const graphs = [
     {
         nodes: [
-            { id: 'root', label: '根节点', type: 'dual-label-node', size: 50 },
+            { id: 'root', label: '根节点', type: 'rect', size: 50 },
             { id: 'node1', label: '节点 1', type: 'circle' },
             { id: 'node2', label: '节点 2', type: 'circle' },
             { id: 'node3', label: '节点 3', type: 'circle' },
@@ -32,7 +32,7 @@ export default () => {
       }, 
       {
         nodes: [
-            { id: 'root', label: '根节点', type: 'dual-label-node', size: 50 },
+            { id: 'root', label: '根节点', type: 'rect', size: 50 },
             { id: 'node1', label: '节点 1', type: 'circle' },
             { id: 'node2', label: '节点 2', type: 'circle' },
             { id: 'node3', label: '节点 3', type: 'circle' },
@@ -54,12 +54,12 @@ export default () => {
       ))} */}
       {graphs.map((graphData, index) => {
         const isZoomedIn = currentIndex === index;
-        const graphWidth = isZoomedIn ? window.innerWidth : 400; // 放大时使用窗口宽度
-        const graphHeight = isZoomedIn ? window.innerHeight : 300; // 放大时使用窗口高度
+        const graphWidth = isZoomedIn ? Math.max(800, window.innerWidth * 0.8) : 400; // 放大时使用窗口宽度
+        const graphHeight = isZoomedIn ? Math.max(600, window.innerHeight * 0.8) : 300;
 
         return (
-          <div key={index} style={{ margin: '10px', position: 'relative' }}>
-            <div style={{ position: 'absolute', top: 10, right: 10, zIndex: 10 }}>
+          <div key={index} style={{ margin: '10px', position: 'relative', width: graphWidth, height: graphHeight, transition: 'all 0.3s' }}>
+            <div style={{ position: 'absolute', top: 10, right: 10, zIndex: 10, pointerEvents: 'auto' }}>
               {isZoomedIn ? (
                 <Button onClick={handleZoomOut}>缩小</Button>
               ) : (
@@ -71,6 +71,7 @@ export default () => {
                 width: graphWidth,
                 height: graphHeight,
                 transition: 'all 0.3s',
+                position: 'relative'
               }}
             >
               <Graph topoData={graphData} width={graphWidth} height={graphHeight} />

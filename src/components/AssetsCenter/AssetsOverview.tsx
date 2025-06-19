@@ -24,7 +24,7 @@ const AssetManagement: React.FC = () => {
   const [visible, setVisible] = useState(false);
   const [form] = Form.useForm();
   const [dataSource, setDataSource] = useState<AssetData[]>([]);
-  const [activeTab, setActiveTab] = useState('network'); // 默认选中的标签
+  const [activeTab, setActiveTab] = useState('storage'); // 默认选中的标签
   const [loading, setLoading] = useState(false);
   const [columns, setColumns] = useState<any[]>([]);
   const [pagination, setPagination] = useState({ current: 1, pageSize: 10, total: 0 });
@@ -91,7 +91,7 @@ const AssetManagement: React.FC = () => {
       };
 
       const startIndex = (page - 1) * pageSize;
-      const paginatedData = mockData[tab].slice(startIndex, startIndex + pageSize);
+      const paginatedData = mockData[tab]?.slice?.(startIndex, startIndex + pageSize);
       
       setDataSource(paginatedData);
       setPagination({ current: page, pageSize, total: mockData[tab].length });
@@ -182,11 +182,6 @@ const AssetManagement: React.FC = () => {
           style={{ width: 200 }}
           prefix={<SearchOutlined />}
         />
-        <Dropdown overlay={menu}>
-          <Button>
-            多资产导入 <DownOutlined />
-          </Button>
-        </Dropdown>
       </div>
 
       {/* Tabs 和表格区域 */}

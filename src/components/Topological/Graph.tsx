@@ -3,7 +3,7 @@ import { useEffect, useRef } from 'react';
 import { useState } from 'react';
 import { ZoomInOutlined, ZoomOutOutlined } from '@ant-design/icons';
 import { Button } from 'antd'
-import './my-custom-node'; // 引入自定义节点实现
+// import './my-custom-node'; // 引入自定义节点实现
 
 interface Node {
   id: string;
